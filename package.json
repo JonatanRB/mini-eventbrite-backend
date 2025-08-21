@@ -16,5 +16,26 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "name": "mini-eventbrite-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --exec node src/server.js",
+  "start": "node src/server.js",
+  "build": "echo 'No build step needed for Node ESM'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonatanRB/mini-eventbrite-backend.git"
+  },
+  "keywords": ["express","nodemon","JWT","Token","Server"],
+  "author": "Jonatan Rea Barbosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonatanRB/mini-eventbrite-backend/issues"
+  },
+  "homepage": "https://github.com/JonatanRB/mini-eventbrite-backend#readme",
+  "description": "Este es un proyecto"
 }
