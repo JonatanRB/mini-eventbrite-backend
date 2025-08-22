@@ -14,7 +14,7 @@ export async function login(req, res, next) {
     }catch (err) {next(e)}
 }
 
-export async function name(params) {
+export async function me(req, res, next) {
     try{
         const data = await Auth.me(req.user.body);
         res.json({ user: data })
