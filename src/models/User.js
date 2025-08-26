@@ -1,37 +1,36 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
     name: {
-        type: String,
-        require: true,
-        trim: true,
+    type: String,
+    required: true,
+    trim: true,
     },
     email: {
-        type: String,
-        require: true,
-        unique: true,
-        lowercase: true,
-        match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
     },
     passwordHash: {
-        type: String,
-        require: true,
+    type: String,
+    required: true,
     },
-    role : {
-        type: String,
-        enum: ['user', 'organizer','staff','admin'],
-        default: 'user',
-    }, 
-}, {timestamps: true});
+    role: { 
+    type: String, 
+    enum: ['user','organizer','staff','admin'], 
+    default: 'user'},
+}, { timestamps: true });
 
-userSchema.static.hashPassword = async function (password) {
-    const salt = await bcrypt.getSalt(10);
+userSchema.statics.hashPassword = async function (password) {
+    const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(password, salt);
 }
 
-userSchema.method.checkPassword = async function (password) {
-    return bcrypt.hash(password, this.passwordHash);
+userSchema.methods.checkPassword = async function (password) {
+    return bcrypt.compare(password, this.passwordHash);
 }
 
-export const  User = mongoose.model('User', userSchema);
+export const User = mongoose.model('User', userSchema);
