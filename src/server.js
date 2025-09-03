@@ -1,12 +1,13 @@
-import { connectMongo } from "./db/mongo";
-import { env } from "./config/env";
+import { buildApp } from "./app.js";
+import { connectMongo } from "./db/mongo.js";
+import { env } from "./config/env.js";
 
-const app = build();
-connectMongo().then(() => {
-    app.listener(env.port, () => {
-        console.log(`[HTTP] Listening on :${env.port}`);
+const app = buildApp();
+connectMongo().then(()=>{
+    app.listen(env.port, ()=>{
+        console.log(`[HTTP] Listening on :${env.port}`)
     });
-}).catch ((err) => {
-    console.error(`[DB] Fail to connect ${err}`);
+}).catch((err) => {
+    console.error(`[DB] Faild to connect ${err}`)
     process.exit(1);
-})
+});

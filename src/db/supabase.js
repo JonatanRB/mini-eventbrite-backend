@@ -2,7 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 import { env } from '../config/env.js';
 
 export const supabase = env.supabase.url && env.supabase.serviceRoleKey
-    ? createClient(env.supabase.url, env.supabase.serviceRoleKey): null;
+    ? createClient(env.supabase.url, env.supabase.serviceRoleKey)
+    : null;
 
 export async function uploadPng(buffer, path) {
     if (!supabase) throw new Error('Supabase not configured');

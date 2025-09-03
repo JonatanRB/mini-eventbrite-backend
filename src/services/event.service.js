@@ -1,8 +1,8 @@
-import { Event } from '../models/Event.js'
-import { AppError } from '../utils/errors.js'
+import { Event } from '../models/Event.js';
+import { AppError } from '../utils/errors.js';
 
 export async function listPublished() {
-    return Event.find({isPuclished: true}).sort({date: 1}).lean();
+    return Event.find({ isPublished: true }).sort({ date: 1 }).lean();
 }
 
 export async function getById(id) {
@@ -12,6 +12,6 @@ export async function getById(id) {
 }
 
 export async function createEvent(input, ownerId) {
-    const e = await Event.create({...input, owner: ownerId});
+    const e = await Event.create({ ...input, owner: ownerId });
     return e.toObject();
 }

@@ -8,6 +8,6 @@ const router = Router();
 router.use('/auth', auth);
 router.use('/events', events);
 router.use('/tickets', tickets);
-router.use('/checkin', tickets); 
+router.use('/checkin', tickets); // expose /checkin/scan
 
 export default router;

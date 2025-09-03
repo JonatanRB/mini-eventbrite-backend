@@ -9,12 +9,14 @@ export async function purchase({ eventId, seat }, buyerId) {
     if (!event) throw new AppError('Event not found', 404, 'EVENT_NOT_FOUND');
     if (!event.isPublished) throw new AppError('Event not published', 400, 'EVENT_UNPUBLISHED');
 
+  // seat bounds
     if (event.seatMap?.type === 'grid') {
     if (seat.row < 1 || seat.col < 1 || seat.row > event.seatMap.rows || seat.col > event.seatMap.cols) {
         throw new AppError('Seat out of bounds', 400, 'SEAT_INVALID');
     }
     }
 
+  // Create ticket (unique index enforces no duplicates)
     const ticket = await Ticket.create({
     event: event._id,
     buyer: buyerId,
@@ -22,6 +24,7 @@ export async function purchase({ eventId, seat }, buyerId) {
     pricePaid: event.price
     });
 
+  // Generate QR payload + PNG + upload to Supabase Storage
     const payload = buildQrPayload(ticket.id);
     const png = await generateQrPngBuffer(payload);
     try {
