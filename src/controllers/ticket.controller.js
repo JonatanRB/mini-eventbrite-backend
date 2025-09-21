@@ -13,18 +13,18 @@ export async function purchase(req, res, next) {
 }
 
 export async function scan(req, res, next) {
-    try {
+  try {
     const { token } = req.body;
     if (!token) throw new AppError('Missing token', 400, 'MISSING_TOKEN');
 
     let data;
     if (typeof token === 'string') {
-        try { data = JSON.parse(token); } 
-        catch { throw new AppError('Invalid token', 400, 'INVALID_TOKEN'); }
+      try { data = JSON.parse(token); } 
+      catch { throw new AppError('Invalid token', 400, 'INVALID_TOKEN'); }
     } else if (typeof token === 'object' && token !== null) {
       data = token; // permite enviar { t, s } directo
     } else {
-        throw new AppError('Invalid token', 400, 'INVALID_TOKEN');
+      throw new AppError('Invalid token', 400, 'INVALID_TOKEN');
     }
 
     const { t, s } = data || {};
@@ -40,5 +40,5 @@ export async function scan(req, res, next) {
 
     const updated = await Tickets.checkIn(ticket);
     res.json({ ok: true, ticket: updated });
-    } catch (e) { next(e); }
+  } catch (e) { next(e); }
 }

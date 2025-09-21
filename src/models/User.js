@@ -2,23 +2,23 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
-    name: {
+  name: {
     type: String,
     required: true,
     trim: true,
-    },
-    email: {
+  },
+  email: {
     type: String,
     required: true,
     unique: true,
     lowercase: true,
     match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-    },
-    passwordHash: {
+  },
+  passwordHash: {
     type: String,
     required: true,
-    },
-    role: { 
+  },
+  role: { 
     type: String, 
     enum: ['user','organizer','staff','admin'], 
     default: 'user'},
